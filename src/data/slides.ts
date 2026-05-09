@@ -437,12 +437,6 @@ export const SLIDES: Slide[] = [
     videoUrl: 'https://www.youtube.com/embed/P4XecimcWJA?si=RcVV-JXIc9eQ23m_&controls=0'
   },
   {
-    id: 'demo-2',
-    type: 'image',
-    title: 'Demo',
-    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2000'
-  },
-  {
     id: 'q2-transition',
     type: 'hero',
     title: 'Q2 2026 Roadmap',
