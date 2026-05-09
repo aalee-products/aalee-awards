@@ -571,19 +571,32 @@ function ImageView({ slide }: { slide: Slide & { type: 'image' } }) {
         initial={{ opacity: 0, scale: 0.98, filter: 'blur(10px)' }}
         animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-full max-h-[70vh] rounded-3xl overflow-hidden shadow-2xl border border-slate-100 bg-white"
+        className={`relative w-full max-h-[70vh] rounded-3xl overflow-hidden shadow-2xl border border-slate-100 bg-white ${slide.videoUrl ? 'aspect-video' : ''}`}
       >
-        <img 
-          src={slide.imageUrl} 
-          alt={slide.title}
-          className="w-full h-full object-contain max-h-[70vh]"
-          referrerPolicy="no-referrer"
-          onError={(e) => {
-            // Fallback for missing images
-            e.currentTarget.src = 'https://placehold.co/1200x800?text=Upload+Screenshot+to+assets/timelines/';
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/5 to-transparent pointer-events-none" />
+        {slide.videoUrl ? (
+          <iframe 
+            src={slide.videoUrl} 
+            className="w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerPolicy="strict-origin-when-cross-origin" 
+            allowFullScreen
+            title={slide.title}
+          />
+        ) : (
+          <>
+            <img 
+              src={slide.imageUrl} 
+              alt={slide.title}
+              className="w-full h-full object-contain max-h-[70vh]"
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                // Fallback for missing images
+                e.currentTarget.src = 'https://placehold.co/1200x800?text=Upload+Screenshot+to+assets/timelines/';
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/5 to-transparent pointer-events-none" />
+          </>
+        )}
       </motion.div>
     </div>
   );

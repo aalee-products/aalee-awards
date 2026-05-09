@@ -55,7 +55,8 @@ export interface ImageSlide {
   id: string;
   type: 'image';
   title: string;
-  imageUrl: string;
+  imageUrl?: string;
+  videoUrl?: string;
   watermark?: string;
 }
 
@@ -433,7 +434,7 @@ export const SLIDES: Slide[] = [
     id: 'demo-1',
     type: 'image',
     title: 'Demo',
-    imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2000'
+    videoUrl: 'https://www.youtube.com/embed/P4XecimcWJA?si=RcVV-JXIc9eQ23m_&controls=0'
   },
   {
     id: 'demo-2',
