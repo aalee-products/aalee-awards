@@ -2,8 +2,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Outfit", "Inter", sans-serif;
+  --font-sans: "Calibri", "Candara", "Segoe UI", "Optima", "Arial", sans-serif;
+  --font-display: "Calibri", "Candara", "Segoe UI", "Optima", "Arial", sans-serif;
 }
 
 @layer base {

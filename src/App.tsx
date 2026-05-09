@@ -10,7 +10,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { SLIDES, Slide, AwardSlide, PhaseSlide, GridSlide, RoadmapSlide, RecapSlide, OrgSlide } from './data/slides';
+import { SLIDES, Slide, AwardSlide, PhaseSlide, GridSlide, RoadmapSlide, RecapSlide, OrgSlide, TableSlide } from './data/slides';
 import { SlideControls, ProgressBar, KeyboardInstructions, AmbientGradients } from './components/PresentationUI';
 import { LayoutGrid, Timer, Rocket, BrainCircuit, Users, Award as AwardIcon, Globe } from 'lucide-react';
 
@@ -140,14 +140,14 @@ function HeroView({ slide }: { slide: Slide & { type: 'hero' } }) {
   return (
     <div className="text-center space-y-16 max-w-5xl">
       <div className="space-y-6">
-        {slide.id !== 'welcome' && !isQ2 && !isDemo && (
+        {slide.id !== 'welcome' && !isDemo && (
           <motion.div
-             initial={{ opacity: 0, y: 30 }}
-             animate={{ opacity: 1, y: 0 }}
-             transition={{ delay: 0.2, duration: 1.2 }}
-             className="text-sm font-bold tracking-[0.4em] text-slate-400 uppercase"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 1.2 }}
+            className="text-sm font-bold tracking-[0.4em] text-slate-400 uppercase"
           >
-            Q1 2026
+            {isQ2 ? 'Q2 2026' : 'Q1 2026'}
           </motion.div>
         )}
         <motion.h1 
@@ -357,9 +357,11 @@ function RecapView({ slide }: { slide: RecapSlide }) {
   );
 }
 
-function TableView({ slide }: { slide: any }) {
+function TableView({ slide }: { slide: TableSlide }) {
+  const isLargeTable = slide.rows.length > 10;
+
   return (
-    <div className="w-full max-w-5xl mx-auto space-y-12">
+    <div className="w-full max-w-6xl mx-auto space-y-8">
       <motion.h2 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -374,34 +376,36 @@ function TableView({ slide }: { slide: any }) {
         transition={{ delay: 0.2 }}
         className="glass rounded-[2rem] overflow-hidden shadow-xl"
       >
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="bg-slate-50/70">
-              {slide.headers.map((header: string, i: number) => (
-                <th key={i} className="px-6 py-5 text-[10px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100/50">
-                  {header}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {slide.rows.map((row: string[], idx: number) => (
-              <tr key={idx} className="hover:bg-slate-50/40 transition-colors group">
-                {row.map((cell, i) => (
-                  <td key={i} className="px-6 py-4 text-base font-light text-slate-700 border-b border-slate-100/50 last:border-b-0">
-                    {cell.includes('--') ? (
-                      <span className="text-slate-400 font-normal bg-slate-50 px-2 py-0.5 rounded border border-slate-100">
-                        {cell.replace('--', '').replace('--', '').trim()}
-                      </span>
-                    ) : (
-                      cell
-                    )}
-                  </td>
+        <div className="overflow-y-auto max-h-[60vh] scrollbar-hide">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-slate-50/70 sticky top-0 z-10 backdrop-blur-md">
+                {slide.headers.map((header: string, i: number) => (
+                  <th key={i} className={`px-6 ${isLargeTable ? 'py-3' : 'py-5'} text-[10px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100/50`}>
+                    {header}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {slide.rows.map((row: string[], idx: number) => (
+                <tr key={idx} className="hover:bg-slate-50/40 transition-colors group">
+                  {row.map((cell, i) => (
+                    <td key={i} className={`px-6 ${isLargeTable ? 'py-2.5 text-sm' : 'py-4 text-base'} font-light text-slate-700 border-b border-slate-100/50 last:border-b-0`}>
+                      {cell.includes('--') ? (
+                        <span className="text-slate-400 font-normal bg-slate-50 px-2 py-0.5 rounded border border-slate-100">
+                          {cell.replace('--', '').replace('--', '').trim()}
+                        </span>
+                      ) : (
+                        cell
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </motion.div>
     </div>
   );
@@ -521,14 +525,16 @@ function OrgView({ slide }: { slide: OrgSlide }) {
           >
             <div className="glass p-8 rounded-[2rem] flex flex-col justify-between h-full border border-white/80 hover:border-slate-200 transition-all duration-500 hover:shadow-xl group-hover:-translate-y-1">
               <div className="flex justify-between items-start mb-6">
-                <div className="space-y-1.5">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] block leading-none">Designation</span>
-                  <h3 className="text-xl font-light text-slate-600 leading-tight">{member.designation}</h3>
-                </div>
+                {member.designation && (
+                  <div className="space-y-1.5">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] block leading-none">Designation</span>
+                    <h3 className="text-xl font-light text-slate-600 leading-tight">{member.designation}</h3>
+                  </div>
+                )}
                 <div className={`text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full ${
                   member.role.toLowerCase().includes('lead') 
-                    ? 'bg-slate-900 text-white' 
-                    : 'bg-slate-100 text-slate-500'
+                    ? 'bg-slate-900 text-white ml-auto' 
+                    : 'bg-slate-100 text-slate-500 ml-auto'
                 }`}>
                   {member.role}
                 </div>
@@ -552,28 +558,32 @@ function OrgView({ slide }: { slide: OrgSlide }) {
 
 function ImageView({ slide }: { slide: Slide & { type: 'image' } }) {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center space-y-12 max-w-7xl">
+    <div className="w-full h-full flex flex-col items-center justify-center space-y-8 max-w-7xl px-4">
       <motion.h2 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className={`${slide.title === 'Demo' ? 'text-sm font-bold uppercase tracking-[0.4em] text-slate-400 mb-8' : 'text-6xl font-display font-medium tracking-tight'}`}
+        className={`${slide.title === 'Demo' ? 'text-sm font-bold uppercase tracking-[0.4em] text-slate-400 mb-8' : 'text-4xl font-display font-medium tracking-tight text-center'}`}
       >
         {slide.title}
       </motion.h2>
       
       <motion.div 
-        initial={{ opacity: 0, scale: 0.95, filter: 'blur(20px)' }}
+        initial={{ opacity: 0, scale: 0.98, filter: 'blur(10px)' }}
         animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-full aspect-[21/9] rounded-[2rem] overflow-hidden shadow-2xl border border-slate-100"
+        className="relative w-full max-h-[70vh] rounded-3xl overflow-hidden shadow-2xl border border-slate-100 bg-white"
       >
         <img 
           src={slide.imageUrl} 
           alt={slide.title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain max-h-[70vh]"
           referrerPolicy="no-referrer"
+          onError={(e) => {
+            // Fallback for missing images
+            e.currentTarget.src = 'https://placehold.co/1200x800?text=Upload+Screenshot+to+assets/timelines/';
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/5 to-transparent pointer-events-none" />
       </motion.div>
     </div>
   );
@@ -631,7 +641,7 @@ function RoadmapOverview({ slide }: { slide: RoadmapSlide }) {
           animate={{ opacity: 1 }}
           className="text-2xl text-slate-400 font-light"
         >
-          2026 and beyond — four phases, one direction
+          2026 - Three phases, one direction
         </motion.p>
       </div>
 

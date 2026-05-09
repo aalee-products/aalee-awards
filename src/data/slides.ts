@@ -3,7 +3,7 @@ import { Users, Briefcase, Zap, Shield, Target, Rocket, Star, Heart, Award, Gem,
 export type SlideType = 'hero' | 'award' | 'grid' | 'roadmap' | 'closing' | 'phase' | 'image' | 'table' | 'list' | 'recap' | 'org';
 
 export interface TeamMember {
-  designation: string;
+  designation?: string;
   employee: string;
   role: string;
 }
@@ -161,7 +161,7 @@ export const SLIDES: Slide[] = [
   {
     id: 'management-updates',
     type: 'hero',
-    title: 'Operation Team\nUpdate',
+    title: 'Operations Team\nUpdate',
     subtitle: 'by Gopika & Nithish',
     dateLocation: '',
     tagline: 'Aalee Awards · Q1 2026',
@@ -183,7 +183,7 @@ export const SLIDES: Slide[] = [
     categoryIcon: Users,
     subtitle: 'Building the people infrastructure at Aalee',
     description: 'Behind every well-functioning team is someone who ensures the people side never breaks down. This award recognises the person who manages HR, keeps the team supported, and ensures everyone has what they need to show up and do their best work.',
-    quote: '"Quiet. Consistent. Essential."',
+    quote: '',
     winner: 'Gopika',
     team: 'Operations',
     department: 'HR'
@@ -206,7 +206,7 @@ export const SLIDES: Slide[] = [
     title: 'BACKBONE AWARD',
     categoryIcon: Shield,
     subtitle: 'The structural support of the Foundation team',
-    description: 'In infrastructure, reliability is not a feature — it is the foundation. This award recognises someone whose presence ensures the platform stays stable, systems stay healthy, and the team never has to worry about what is holding everything together.',
+    description: 'In infrastructure, reliability is not a feature - it is the foundation. This award recognises someone whose presence ensures the platform stays stable, systems stay healthy, and the team never has to worry about what is holding everything together.',
     quote: '"Never loud. Never missing. Always exactly where needed."',
     winner: 'Thiyagarajan',
     team: 'Foundation',
@@ -278,8 +278,8 @@ export const SLIDES: Slide[] = [
     title: 'HEAD START AWARD',
     categoryIcon: Timer,
     subtitle: 'A breakthrough entry into the Aalee team',
-    description: 'Two months. In two months, this person joined the ML team, absorbed the stack, earned the team\'s trust, and delivered real output well before the timeline demanded it. The Head Start Award celebrates someone who did not wait for permission to contribute.',
-    quote: '"Two months in. Already trusted."',
+    description: 'In couple of month, this person joined the ML team, absorbed the stack, earned the team\'s trust, and delivered real output well before the timeline demanded it. The Head Start Award celebrates someone who did not wait for permission to contribute.',
+    quote: '"couple of months in, Already Trusted"',
     winner: 'Ashwini',
     team: 'AI Products',
     department: 'ML'
@@ -350,7 +350,7 @@ export const SLIDES: Slide[] = [
     title: 'CHAMPION AWARD',
     categoryIcon: Shield,
     subtitle: 'The highest individual recognition at Aalee Awards 2026',
-    description: 'There is one word for this person: Champion. Not because the title was assigned — but because it was earned, again and again, in every challenge, every crunch, and every moment that needed someone to step forward. When the stakes are highest, when the pressure is real, and when the team needs one person to deliver — this person does. Every. Single. Time.',
+    description: 'There is one word for this person: Champion. Not because the title was assigned, but because it was earned, again and again, in every challenge, every crunch, and every moment that needed someone to step forward. When the stakes are highest, when the pressure is real, and when the team needs one person to deliver - this person does. Every. Single. Time.',
     quote: '"The one you call when it has to be done."',
     winner: 'Abdul Hajees',
     team: 'Aalee',
@@ -371,8 +371,8 @@ export const SLIDES: Slide[] = [
     title: 'Core Ecosystem',
     watermark: 'Q1 Recap',
     items: [
-      'Auth Service',
-      'Admin Console',
+      'Auth App (SSO)',
+      'Console App',
       'Aalee App',
       'CMS Engine',
       'Status & Notifications',
@@ -451,7 +451,7 @@ export const SLIDES: Slide[] = [
     url: 'aalee.ai'
   },
   {
-    id: 'aalee-hires',
+    id: 'aalee-hires-q2',
     type: 'hero',
     title: 'Aalee Hires',
     subtitle: '',
@@ -460,7 +460,7 @@ export const SLIDES: Slide[] = [
     url: 'aalee.ai'
   },
   {
-    id: 'aalee-team',
+    id: 'aalee-team-q2',
     type: 'hero',
     title: 'Aalee Team',
     subtitle: '',
@@ -474,19 +474,8 @@ export const SLIDES: Slide[] = [
     title: 'Operations Team',
     subtitle: 'Efficiency & Support',
     members: [
-      { designation: 'HR', employee: 'Gopika', role: 'HR Associate' },
-      { designation: 'Finance + Admin', employee: 'Nithish', role: 'Operations Associate' }
-    ]
-  },
-  {
-    id: 'team-foundation',
-    type: 'org',
-    title: 'Foundation Team',
-    subtitle: 'Infrastructure & Reliability',
-    members: [
-      { designation: 'Infra', employee: 'Meenakshi', role: 'Team Lead' },
-      { designation: 'MLOps', employee: 'Sri Santosh', role: 'Engineer' },
-      { designation: 'DevOps', employee: 'Thiyagrajan', role: 'Engineer' }
+      { employee: 'Gopika', role: 'HR Associate' },
+      { employee: 'Nithish', role: 'Operations Associate' }
     ]
   },
   {
@@ -499,6 +488,17 @@ export const SLIDES: Slide[] = [
       { designation: 'Digital Marketing Associate', employee: '-- vacant --', role: 'Associate' },
       { designation: 'Digital Marketing Associate', employee: '-- vacant --', role: 'Associate' },
       { designation: 'Customer Support Associate', employee: '-- vacant --', role: 'Associate' }
+    ]
+  },
+  {
+    id: 'team-foundation',
+    type: 'org',
+    title: 'Foundation Team',
+    subtitle: 'Infrastructure & Reliability',
+    members: [
+      { employee: 'Meenakshi', role: 'Team Lead' },
+      { employee: 'Sri Santosh', role: 'Engineer' },
+      { employee: 'Thiyagrajan', role: 'Engineer' }
     ]
   },
   {
@@ -528,10 +528,8 @@ export const SLIDES: Slide[] = [
       {
         title: 'Strategic Priorities',
         items: [
-          'Interns Hiring: On-campus focus for Marketing, Sales, and Support',
-          'Build systems to streamline HR, Admin, and Finance processes',
-          'Customer Support structure and SLA setup',
-          'Admin processes for scaling team headcount'
+          'Hiring:focus for Sales Executive, Digital Marketing Associate, Customer Support Associate',
+          'streamline HR, Admin, and Finance processes'
         ]
       }
     ]
@@ -547,7 +545,8 @@ export const SLIDES: Slide[] = [
         items: [
           'Go-to-market activation — brand, outreach, pipeline',
           'Solutions focus: Services → Finance → Marketing',
-          'First commitment cycles vs Q1 baselines'
+          'Full outreach through campaigns and digital marketing',
+          'Activate sales initiatives for revenue generation'
         ]
       }
     ]
@@ -563,7 +562,7 @@ export const SLIDES: Slide[] = [
         items: [
           'Infrastructure hardening for production scale',
           'Platform reliability and observability upgrades',
-          'Support Console rollout and service APIs',
+          'Support Console, BOS and MAAS rollout and service APIs',
           'DevOps process improvements for faster CI/CD'
         ]
       }
@@ -579,8 +578,8 @@ export const SLIDES: Slide[] = [
         title: 'Strategic Priorities',
         items: [
           'Enhance All Products',
-          'Develop and Delivery MaaS (Model as a Service)',
-          'Develop and Deliver Bos (Business Operating System)',
+          'Develop and Deliver MAAS (Model as a Service)',
+          'Develop and Deliver BOS (Business Operating System)',
           'Decommission APP and CAM by replacing with Console with Advanced capabilities',
           'Assist Mobile App Release*'
         ]
@@ -607,8 +606,20 @@ export const SLIDES: Slide[] = [
     phases: [
       { title: 'STARTER', date: 'Q1 2026', description: '' },
       { title: 'STARTER ➔ GROWTH', date: 'Q2 2026', description: '' },
-      { title: 'GROWTH ➔ SCALE', date: 'Q3 2026', description: '' }
+      { title: 'GROWTH', date: 'Q3 2026', description: '' }
     ]
+  },
+  {
+    id: 'team-timelines',
+    type: 'image',
+    title: 'Release/Review Timelines',
+    imageUrl: '/timelines/operations_timeline.png'
+  },
+  {
+    id: 'product-timelines',
+    type: 'image',
+    title: 'Release/Review Timelines',
+    imageUrl: '/timelines/products_timeline.png'
   },
   {
     id: 'closing',
@@ -620,7 +631,7 @@ export const SLIDES: Slide[] = [
       belief: 'This is what Aalee is built on.',
       tagline: 'AI For Business.',
       url: 'aalee.ai',
-      footer: 'Aalee Awards · Q1 2026 · Next Awards: End of Q3 2026'
+      footer: 'Aalee · Q2 2026'
     }
   }
 ];
